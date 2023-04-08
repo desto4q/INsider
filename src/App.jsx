@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import WebFont from 'webfontloader';
+import Router from './Router/Router';
 WebFont.load({
   google: {
     families: ['Droid Sans', 'Droid Serif', "Montserrat"]
@@ -7,8 +8,13 @@ WebFont.load({
 });
 
 function App() {
+  useLayoutEffect(()=>{
+    let  header = document.querySelector("title").innerHTML= "INsider"
+  })
   return (
-    <div>App</div>
+    <div className="App">
+      <Router/>
+    </div>
   )
 }
 
