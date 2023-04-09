@@ -1,11 +1,320 @@
 .App {
     min-height: 100dvh;
 }
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.App {
+    display: flex;    
+    * {
+        transition: 0.2s ease-in-out;
+    }
+}
+.sidebar {
+    width: 20%;
+    max-width: 200px;
+    padding: 12px 12px;
+    gap: 48px;
+    display: flex;
+    flex-direction: column;
+    span {
+        display: flex;
+        flex-direction: column;
+        h2 {
+            font-size: 20px;
 
-#light_theme {
-    $bg: #F9FAFF;
+        }
+    }
+    .logo {
+        width: max-content;
+        padding: 4px 12px;
+        border-radius: 4px;
+        div {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            font-weight: 600;
+            h2 {
+                font-weight: 800;
+            }
+
+        }
+    }
+    .links {
+        position: relative;
+        gap: 20px;
+        a {
+            font-weight: 600 !important;
+            font-size: 14px;
+            padding: 8px 6px;
+            border-radius: 4px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            position: relative;
+        }
+    }
+    .settings {
+        margin-top: auto;
+        padding: 12px 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        button {
+            all: unset;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 38px;
+            
+        }
+      
+    }
 }
 
-#dark_theme {
+.home {
+    display: flex;
+    flex-direction: column;
+    background-color: #f1f1f1;
+    width: 100%;
+    .header {
+        position: sticky;
+        top: 0;
+        height: 72px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        justify-content: space-between;
+        .search {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            padding: 0px 0px;
+            border-radius: 4px;
+            input {
+                all: unset;
+                width: 400px;
+                font-size: 14px;
+                padding-left: 4px;
+            }
+            button {
+                all: unset;
+                height: 100%;
+                width: 32px;
+            }
+           
+        }
+
+        .tools {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            button {
+                all: unset;
+                padding: 8px;
+            }
+        }
+
+
+    }
+}
+
+////light theme
+#light {
+    $active: #f3eff5;
+    $grey: #191716;
+    $accent: #ffaa5a;
+    $accent2: #805e73;
+    $accent3: #587792;
+    $bg: #fff;
+    $outline: transparentize( $grey, 0.8);
+    background-color: $bg;
+    .sidebar {
+        > span {
+            border-top: 1px solid $outline;
+        }
+        outline: 1px solid $outline;
+        .logo {
+            background-color: $grey;
+            color: $bg;
+            h2 {
+                color: $accent;
+
+            }
+        }
+        .links {
+            a {
+               color: $grey;
+               svg {
+                transition: 0.15s ease-in;
+                height: 20px;
+               }
+            }
+            a:is(:focus,:hover) {
+                svg {
+                    color: $accent;
+                }
+               color: $accent;
+               
+            }
+            a::before {
+                transition: 0.2s;
+                content: "";
+                height: 70%;
+                width: 40px;
+                background-color: $accent;
+                position: absolute;
+                left: -54px;
+                border-radius: 4px;
+
+            }
+            a:is(:focus)::before {
+                left: -44px;
+
+            }
+        }
+    }
+    .settings {
+        button {
+            font-weight: 600;
+            svg {
+                color: $accent;
+            }
+        }
+    }
+    .home {
+        .header {
+            background-color: $bg;
+        
+            .search {
+                background-color: #f1f1f1;
+                button {
+                    background-color: $accent;
+                    display: grid;
+                    place-items: center;
+                    svg{
+                        color: white;
+                     // height: 16px;
+                    }
+                }
+                button:active {
+                    transition: 0.2s ease-out;
+                    background-color: $accent3;
+                }
+
+            }
+            .tools {
+                > * {
+                    cursor: pointer;
+                }
+                button {
+                    background: linear-gradient( to right, $accent, red);
+                    box-shadow: 0px 0px 5px $outline;
+                    color: $bg;
+                    border-radius: 4px;
+                    // outline: 1px solid $g;
+                }
+            }
+        }
+    }
+}
+
+#dark {
+    $bg: #000000;
+    $active: #f3eff5;
+    $grey: #191716;
+    $accent: #ffaa5a;
+    $accent2: #805e73;
+    $accent3: #587792;
+    $white: #fff;
+    $outline: transparentize( $active, 0.8);
+    background-color: $bg;
+    
+    .sidebar {
+        border-right:1px solid $outline ;
+        .logo {
+            background-color: $outline;
+            div {
+                color: white;
+                h2 {
+                    color: $accent;   
+                }    
+            }
+            
+        }
+        .settings {
+            color: white;
+        }
+
+        .links {
+            a {
+               color: $white;
+               svg {
+                transition: 0.15s ease-in;
+                height: 20px;
+               }
+            }
+            a:is(:focus,:hover) {
+                svg {
+                    color: $accent;
+                }
+               color: $accent;
+               
+            }
+            a::before {
+                transition: 0.2s;
+                content: "";
+                height: 70%;
+                width: 40px;
+                background-color: $accent;
+                position: absolute;
+                left: -54px;
+                border-radius: 4px;
+
+            }
+            a:is(:focus)::before {
+                left: -44px;
+
+            }   
+        }
+    }
+
+    .home {
+        background-color: $bg;
+        .header {
+            border-bottom: $outline 1px solid;
+            .search {
+                background-color: #222222;
+                overflow: hidden;
+                input {
+                    color: white;
+                }
+                button{
+                    display: flex;
+                    background-color: $accent;
+                    justify-content: center;
+                    align-items: center;
+                }
+                svg {
+                    color: $active;
+                }
+            }
+            .tools {
+                svg {
+                    color: $white;
+                }
+                button {
+                    background: linear-gradient(to right
+                    ,$accent,red);
+                    color: white;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
 
 }
