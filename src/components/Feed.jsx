@@ -9,12 +9,11 @@ import pickRandom from 'pick-random';
 import Layout from 'react-masonry-list'
 import { useQuery } from 'react-query';
 import { userContext } from '../context/Context';
-import { client, query } from '../api/api';
+import { client, fetchPexels, query } from '../api/api';
 
 
 function Feed() {
-    let [content,setContent] = useState([])
-    let {currentwindow} = useContext(userContext)
+    let {currentwindow,searchparam} = useContext(userContext)
     let [column,setColumn] = useState(4)
     let updateColumn = () => {
         switch (currentwindow) {
@@ -24,11 +23,11 @@ function Feed() {
                 break;
             case "medium": 
                 console.log("medium")
-                setColumn(2)
+                setColumn(3)
                 break;
             case "small": 
                 console.log("small")
-                setColumn(1)
+                setColumn(2)
                 break;
         
             default:
@@ -38,30 +37,28 @@ function Feed() {
     useEffect(()=>{
         updateColumn()
     },[currentwindow])
+    
 
-  const {data} = useQuery("ewdata", ()=>{
-    client.photos.curated({per_page: 50}).then(media => {
-        let ph = [media.photos]
-        setContent(...ph)
-        console.log(content)
+    const {data, isLoading} = useQuery(["newdata",searchparam], ()=> {
+            return fetchPexels(searchparam)
     })
-  })
+
     
-    // const empty = new Array(1,2,3,4,5,6,7,7,820)
-    
-    let items = content.map(({src,id})=>{
-        let size = src.medium
-        return (
-            <Card img={size} key={id}/>
-        )
-    })
-  return (
+       return (
         <div className="feed">
-            <Layout colCount={column} minWidth={200} className='masonry' items={items}>
+            {isLoading == true ? <>isLoading</>:
                 
+            <Layout colCount={column} minWidth={200} className='masonry' items={data.map(({id,photographer,src,photographer_url,url})=>{
+                return (
+                    <Card key={id} user={photographer} img={src.medium} source={url} origin={photographer_url}/>
+                )
+            })}>
+                                
             </Layout>
+            }
         </div>
-        )
+    )
+  
 }
 
 export default Feed

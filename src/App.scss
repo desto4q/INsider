@@ -101,15 +101,96 @@
     grid-template-rows: masonry;
 }
  
+.card:hover {
+    transform: scale(102%);
+    .to_original {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
 .card {
-    background-color: red;
+    // background-color: red;
     width: 236px;
     height: fit-content;
     border-radius: 4px;
     overflow: hidden;
     display: flex;
-    img {
-        width: 245px !important;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    
+    .to_original {
+        pointer-events: none;
+        position: absolute;
+        opacity: 0;
+        height: 100%;
+        backdrop-filter: grayscale(60%);
+        width: 100%;
+        display: flex;
+
+        .options {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            height: fit-content;
+            justify-content: space-between;
+            .person {
+                all: unset;
+                background-color: white;
+                padding: 8px;
+                font-weight: 600;
+                border-radius: 8px;
+                font-size: 16px;
+            }
+            .link {
+                all: unset;
+                padding: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                background-color: white;
+                
+            }
+        }
+        a {
+            background-color: white;
+            color: black;
+            padding: 8px;
+            height: fit-content;
+            margin-top: 10px;
+            margin-left: 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+    }
+    .main_img {
+        all: unset;
+        object-fit: contain;
+        border-radius: 4px;
+        width: 225px ;
+    }
+    .user {
+        display: flex;
+        flex-direction: column;
+        
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            img {
+                height: 32px;
+                border-radius: 100px;
+            }
+            svg {
+                fill: white;
+            }
+            p  {
+                font-weight: 600;
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -263,6 +344,8 @@
     }
 }
 
+////dark theme
+
 #dark {
     $bg: #000000;
     $active: #f3eff5;
@@ -354,6 +437,18 @@
                     color: white;
                     border-radius: 4px;
                 }
+            }
+        }
+    }
+    .card {
+        .user {
+            svg {
+                fill: black;
+                stroke: white;
+            }
+            p{
+                color: white;
+                font-weight: 500;
             }
         }
     }

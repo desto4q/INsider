@@ -4,6 +4,7 @@ export let userContext = createContext()
 function Context({Children}) {
     let [theme,setTheme] = useState("light")
     let [currentwindow,setWindow] = useState("wide");
+    let [searchparam,setSearch] = useState()
 
     
 
@@ -36,7 +37,7 @@ function Context({Children}) {
 
    
     
-    let values = {theme,toggletheme,setWindow,currentwindow}
+    let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch}
 
   return (
     <userContext.Provider value={values}>

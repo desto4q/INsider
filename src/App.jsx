@@ -10,14 +10,14 @@ WebFont.load({
 });
 
 function App() {
+  let {updateWindow} = useContext(userContext)
   useLayoutEffect(()=>{
-    let  header = document.querySelector("title").innerHTML= "INsider"
+    let  header = document.querySelector("title").innerHTML= "INsider";
+    updateWindow()
   })
   let {theme} = useContext(userContext)
-  console.log(theme)
   return (
     <div className="App" id={theme}>
-
       <Router/>
     </div>
   )
