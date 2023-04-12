@@ -6,7 +6,6 @@ import Feed from '../components/Feed'
 function Home() {
   return (
     <div className="home">
-      <Header/>
       <Stories/>
       {/* Feed */}
       <Feed/>

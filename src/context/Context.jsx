@@ -35,7 +35,6 @@ function Context({Children}) {
       })
     },[])
 
-   
     
     let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch}
 

@@ -5,13 +5,13 @@ import pickRandom from 'pick-random';
 import Layout from 'react-masonry-list'
 import { useInfiniteQuery, useQuery,QueryCache } from 'react-query';
 import { userContext } from '../context/Context';
-import { client, fetchPexels, query } from '../api/api';
+import { client, fetchPexels, getVidoes, query } from '../api/api';
 
 
 const queryCache = new QueryCache()
 function Feed() {
     
-    let {currentwindow,searchparam} = useContext(userContext)
+    let {currentwindow,searchparam,} = useContext(userContext)
     let [column,setColumn] = useState(4)
     let updateColumn = () => {
         switch (currentwindow) {
@@ -38,18 +38,19 @@ function Feed() {
         return (page.page + 1)
     },
     queryFn:({pageParam = 1})=>{
-        return (fetchPexels(searchparam,pageParam))
+            return (fetchPexels(searchparam,pageParam))    
+        
     }})
 
-   
+
     useEffect(()=>{
+        console
         let onScroll = (e) => {
             let {scrollHeight,scrollTop }= e.target.documentElement
             let current = scrollTop + window.innerHeight
             if (current + 1 >= scrollHeight) {
                 fetchNextPage()
             }
-            
         }
         window.addEventListener("scroll",e=>{
             onScroll(e)
@@ -67,13 +68,14 @@ function Feed() {
     let {ret} = useRef()
        return (
         <div className="feed"  >
-            {isLoading == true ?  <>isLoading</>:                
+            {
+            isLoading == true ?  <>isLoading</>:                
             <Layout colCount={column}  minWidth={200} className='masonry' items={data.pages.flatMap((data)=>{
                 return data.photos
             }).map(({id,photographer,src,photographer_url,url})=>{
-                // console.log(data.pages[0])
+                
                 return (
-                    <Card key={id} user={photographer} img={src.medium} source={url} origin={photographer_url}/>
+                    <Card key={id} id={id} user={photographer} img={src.medium} source={url} origin={photographer_url}/>
                 )
             })}>
                                 

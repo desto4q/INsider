@@ -1,7 +1,11 @@
 import { IconLink, IconUserCircle } from '@tabler/icons-react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { userContext } from '../context/Context'
 
-function Card({card,img,title,user,userimg, origin,source}) {
+function Card({card,img,title,user,userimg, origin,source,id}) {
+  let {searchType} = useContext(userContext)
+  
   return (
     <div className={"card"}>
       <div className="to_original">
@@ -14,7 +18,9 @@ function Card({card,img,title,user,userimg, origin,source}) {
           </a>
         </div>
       </div>
-      <img className='main_img' loading='lazy' src={img} alt="" />
+      <Link to={`/${id}`}>
+        <img  className='main_img' loading='lazy' src={img} alt="" />
+      </Link>
       <div className='user'>
         {title && <h4>{title}</h4>}
         {user && <div className='info'>{userimg ?

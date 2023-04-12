@@ -8,7 +8,8 @@
     box-sizing: border-box;
 }
 .App {
-    display: flex;    
+    display: flex;  
+    flex-direction: column;
     * {
         transition: 0.2s ease-in-out;
     }
@@ -16,71 +17,7 @@
 .masonry {
     place-items: center;
 }
-.sidebar {
-    width: 20%;
-    max-width: 200px;
-    height: 100vh;
-    padding: 12px 12px;
-    gap: 48px;
-    min-width: 60px;
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 0;
-    span {
-        display: flex;
-        flex-direction: column;
-        h2 {
-            font-size: 20px;
 
-        }
-    }
-    .logo {
-        width: max-content;
-        padding: 4px 12px;
-        border-radius: 4px;
-        div {
-            display: flex;
-            align-items: baseline;
-            gap: 2px;
-            font-weight: 600;
-            h2 {
-                font-weight: 800;
-            }
-
-        }
-    }
-    .links {
-        position: relative;
-        gap: 20px;
-        a {
-            font-weight: 600 !important;
-            font-size: 14px;
-            padding: 8px 6px;
-            border-radius: 4px;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            position: relative;
-        }
-    }
-    .settings {
-        margin-top: auto;
-        padding: 12px 4px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        button {
-            all: unset;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            height: 38px;
-            
-        }
-      
-    }
-}
 
 // .feed {
 //     all: unset;
@@ -102,6 +39,7 @@
 }
  
 .card:hover {
+    filter: grayscale(10);
     transform: scale(102%);
     .to_original {
         opacity: 1;
@@ -118,12 +56,12 @@
     flex-direction: column;
     gap: 8px;
     position: relative;
-    
+
     .to_original {
         pointer-events: none;
         position: absolute;
         opacity: 0;
-        height: 100%;
+        height: fit-content;
         backdrop-filter: grayscale(60%);
         width: 100%;
         display: flex;
@@ -132,7 +70,7 @@
             display: flex;
             align-items: center;
             width: 100%;
-            padding: 12px;
+            padding: 12px 4px;
             height: fit-content;
             justify-content: space-between;
             .person {
@@ -141,11 +79,11 @@
                 padding: 8px;
                 font-weight: 600;
                 border-radius: 8px;
-                font-size: 16px;
+                font-size: 12px;
             }
             .link {
                 all: unset;
-                padding: 6px;
+                padding: 4px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -154,16 +92,7 @@
                 
             }
         }
-        a {
-            background-color: white;
-            color: black;
-            padding: 8px;
-            height: fit-content;
-            margin-top: 10px;
-            margin-left: 8px;
-            border-radius: 10px;
-            font-weight: 600;
-        }
+        // 
     }
     .main_img {
         all: unset;
@@ -200,48 +129,61 @@
     background-color: #f1f1f1;
     width: 100%;
     // background-color: green;
-    .header {
-        position: sticky;
-        z-index: 10 ;
-        top: 0;
-        height: 72px;
-        width: 100%;
+   
+}
+.header_logo {
+    display: flex;
+    align-items: baseline;
+    background-color: #222222;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    h2 {
+        font-size: 18px;
+        color: #ffaa5a;
+    }
+}
+.header {
+    position: sticky;
+    z-index: 10 ;
+    top: 0;
+    height: 72px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    gap: 40px;
+    .search {
+        height: 38px;
         display: flex;
         align-items: center;
-        padding: 0 40px;
-        justify-content: space-between;
-        .search {
-            height: 38px;
-            display: flex;
-            align-items: center;
-            padding: 0px 0px;
-            border-radius: 4px;
-            input {
-                all: unset;
-                width: 400px;
-                font-size: 14px;
-                padding-left: 4px;
-            }
-            button {
-                all: unset;
-                height: 100%;
-                width: 32px;
-            }
-           
+        padding: 0px 0px;
+        border-radius: 4px;
+        input {
+            all: unset;
+            width: 100%;
+            font-size: 14px;
+            padding-left: 4px;
         }
-
-        .tools {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            button {
-                all: unset;
-                padding: 8px;
-            }
+        button {
+            all: unset;
+            height: 100%;
+            width: 32px;
         }
-
-
+       
     }
+
+    .tools {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        button {
+            all: unset;
+            padding: 8px;
+        }
+    }
+
+
 }
 
 ////light theme
@@ -254,50 +196,19 @@
     $bg: #fff;
     $outline: transparentize( $grey, 0.8);
     background-color: $bg;
-    .sidebar {
-        > span {
-            border-top: 1px solid $outline;
+   
+    .header {
+        background-color: white;
+        .search {
+            width:80%;
+            background-color: $outline;
         }
-        outline: 1px solid $outline;
-        .logo {
-            background-color: $grey;
-            color: $bg;
-            h2 {
-                color: $accent;
-
-            }
+       .tools {
+        svg {
+            fill: $accent3;
+            stroke: $accent3;
         }
-        .links {
-            a {
-               color: $grey;
-               svg {
-                transition: 0.15s ease-in;
-                height: 20px;
-               }
-            }
-            a:is(:focus,:hover) {
-                svg {
-                    color: $accent;
-                }
-               color: $accent;
-               
-            }
-            a::before {
-                transition: 0.2s;
-                content: "";
-                height: 70%;
-                width: 40px;
-                background-color: $accent;
-                position: absolute;
-                left: -54px;
-                border-radius: 4px;
-
-            }
-            a:is(:focus)::before {
-                left: -44px;
-
-            }
-        }
+       }
     }
     .settings {
         button {
@@ -357,54 +268,6 @@
     $outline: transparentize( $active, 0.8);
     background-color: $bg;
     
-    .sidebar {
-        border-right:1px solid $outline ;
-        .logo {
-            background-color: $outline;
-            div {
-                color: white;
-                h2 {
-                    color: $accent;   
-                }    
-            }
-            
-        }
-        .settings {
-            color: white;
-        }
-
-        .links {
-            a {
-               color: $white;
-               svg {
-                transition: 0.15s ease-in;
-                height: 20px;
-               }
-            }
-            a:is(:focus,:hover) {
-                svg {
-                    color: $accent;
-                }
-               color: $accent;
-               
-            }
-            a::before {
-                transition: 0.2s;
-                content: "";
-                height: 70%;
-                width: 40px;
-                background-color: $accent;
-                position: absolute;
-                left: -54px;
-                border-radius: 4px;
-
-            }
-            a:is(:focus)::before {
-                left: -44px;
-
-            }   
-        }
-    }
 
     .home {
         background-color: $bg;

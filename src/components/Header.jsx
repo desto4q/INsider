@@ -6,26 +6,22 @@ function Header() {
     let {searchparam,setSearch} = useContext(userContext)
   return (
     <div className="header">
+
+        <div className="header_logo">
+            <h2>IN</h2>pic
+        </div>
         <form className='search' onSubmit={e=>{
             e.preventDefault()
             console.log(e.target[0].value)
             setSearch(e.target[0].value)
         }
         }>
+            
             <input type="text" placeholder='Search here....' name="" id="" />
             <button><IconSearch/></button>
+            
         </form>
-        <div className='tools'> 
-            <span>
-                <IconBell/>
-            </span>
-            <span>
-                <IconNotification/>
-            </span>
-            <button>
-                Add Photos
-            </button>
-        </div>
+        
     </div>
   )
 }
