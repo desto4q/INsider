@@ -167,9 +167,9 @@
     }
     .main_img {
         all: unset;
-        object-fit: contain;
-        border-radius: 4px;
-        width: 225px ;
+        object-fit: cover;
+        border-radius: 20px;
+        width: 100%;
     }
     .user {
         display: flex;
@@ -441,6 +441,7 @@
         }
     }
     .card {
+        outline: 1px solid $outline;
         .user {
             svg {
                 fill: black;

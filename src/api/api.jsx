@@ -1,5 +1,5 @@
 let api_key = "6432835bb255422f68bea58c";
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider,  } from 'react-query';
 
 export const queryClient = new QueryClient()
 
@@ -21,19 +21,21 @@ export const query = 'Nature';
 
 
 
-export let fetchPexels = async (search) => {
-    console.log("fetching")
+export let fetchPexels = async (search,page) => {
+    // if (!page) {
+    //     page = 1
+    // }
     if (search) {
-        let res = await client.photos.search({ query, per_page: 50}).then(photos => {
-            let ph= [...photos.photos]
+        let query = search
+        let res = await client.photos.search({ query, per_page: 30,page: page}).then(photos => {
+            let ph= photos
             return ph
         });
-        console.log(search)
         return(res)
     }
     
-    let res = await client.photos.curated({per_page: 50}).then(media => {
-        let ph = [...media.photos]
+    let res = await client.photos.curated({per_page: 30, page: page}).then(media => {
+        let ph = media
         return ph
         })
     return (res)  

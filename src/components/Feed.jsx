@@ -1,54 +1,77 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Card from './Card'
 import axios from 'axios';
-// import Packery from 'packery';
-// import {Masonry}from "react-masonry"
-
 import pickRandom from 'pick-random';
-// import Masonry from 'react-masonry-css'
 import Layout from 'react-masonry-list'
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery,QueryCache } from 'react-query';
 import { userContext } from '../context/Context';
 import { client, fetchPexels, query } from '../api/api';
 
 
+const queryCache = new QueryCache()
 function Feed() {
+    
     let {currentwindow,searchparam} = useContext(userContext)
     let [column,setColumn] = useState(4)
     let updateColumn = () => {
         switch (currentwindow) {
             case "wide": 
-                console.log("wide")
                 setColumn(4)
                 break;
             case "medium": 
-                console.log("medium")
                 setColumn(3)
                 break;
             case "small": 
-                console.log("small")
                 setColumn(2)
-                break;
-        
+                break;        
             default:
                 break;
         }
     }
+    
+
+    
+   
+    const {data,isLoading,isFetchingNextPage,fetchNextPage} = useInfiniteQuery({
+    queryKey: ["content",searchparam],
+    getNextPageParam: (page) => {
+        return (page.page + 1)
+    },
+    queryFn:({pageParam = 1})=>{
+        return (fetchPexels(searchparam,pageParam))
+    }})
+
+   
+    useEffect(()=>{
+        let onScroll = (e) => {
+            let {scrollHeight,scrollTop }= e.target.documentElement
+            let current = scrollTop + window.innerHeight
+            if (current + 1 >= scrollHeight) {
+                fetchNextPage()
+            }
+            
+        }
+        window.addEventListener("scroll",e=>{
+            onScroll(e)
+        })
+        return () => window.removeEventListener("scroll",e=>{
+            onScroll(e)
+        })
+    },[])
+
+
     useEffect(()=>{
         updateColumn()
     },[currentwindow])
     
-
-    const {data, isLoading} = useQuery(["newdata",searchparam], ()=> {
-            return fetchPexels(searchparam)
-    })
-
-    
+    let {ret} = useRef()
        return (
-        <div className="feed">
-            {isLoading == true ? <>isLoading</>:
-                
-            <Layout colCount={column} minWidth={200} className='masonry' items={data.map(({id,photographer,src,photographer_url,url})=>{
+        <div className="feed"  >
+            {isLoading == true ?  <>isLoading</>:                
+            <Layout colCount={column}  minWidth={200} className='masonry' items={data.pages.flatMap((data)=>{
+                return data.photos
+            }).map(({id,photographer,src,photographer_url,url})=>{
+                // console.log(data.pages[0])
                 return (
                     <Card key={id} user={photographer} img={src.medium} source={url} origin={photographer_url}/>
                 )
@@ -56,6 +79,9 @@ function Feed() {
                                 
             </Layout>
             }
+            <div className="fetchnext">
+                    <h2>sss</h2>
+            </div>
         </div>
     )
   
