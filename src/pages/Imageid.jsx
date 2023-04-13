@@ -1,18 +1,39 @@
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useContext, useEffect } from 'react'
+import { useInfiniteQuery, useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { getPhoto } from '../api/api'
+import { fetchPexels, getPhoto } from '../api/api'
+import Userdetails from '../components/Userdetails'
+import { IconLink } from '@tabler/icons-react'
+import Similar from '../components/Similar'
+import { userContext } from '../context/Context'
 
 function Imageid() {
     let {id} = useParams()
-    console.log(id)
+
     let {
         data,isLoading
     } = useQuery(["photo",id],()=>{
         return getPhoto(id)
     })
+
+
+    if (isLoading == true) {
+      return <>loading</>
+    }
+
+    let string = data.url.replace("https://www.pexels.com/photo/","").replaceAll("-"," ").replace("/","").replace(/[0-9]/g, '').split(" ")[0];
   return (
-    <div className='photo'>Imageid</div>
+    <div className='photo'>
+      <Userdetails/>
+      <div className="container">
+        <div className="to_original">
+          <a href="">{data.photographer}</a>
+          <a href=""><IconLink/></a>
+        </div>
+        <img src={data.src.portrait} alt="" />
+      </div>
+      <Similar searchparam={string} />
+    </div>
   )
 }
 

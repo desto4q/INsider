@@ -34,9 +34,24 @@ function Context({Children}) {
           updateWindow()
       })
     },[])
-
+    let [column,setColumn] = useState(4)
+    let updateColumn = () => {
+        switch (currentwindow) {
+            case "wide": 
+                setColumn(4)
+                break;
+            case "medium": 
+                setColumn(3)
+                break;
+            case "small": 
+                setColumn(2)
+                break;        
+            default:
+                break;
+        }
+    }
     
-    let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch}
+    let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch,column,updateColumn}
 
   return (
     <userContext.Provider value={values}>

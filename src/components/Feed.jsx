@@ -5,29 +5,13 @@ import pickRandom from 'pick-random';
 import Layout from 'react-masonry-list'
 import { useInfiniteQuery, useQuery,QueryCache } from 'react-query';
 import { userContext } from '../context/Context';
-import { client, fetchPexels, getVidoes, query } from '../api/api';
+import { client, fetchPexels, query } from '../api/api';
 
 
 const queryCache = new QueryCache()
-function Feed() {
-    
-    let {currentwindow,searchparam,} = useContext(userContext)
-    let [column,setColumn] = useState(4)
-    let updateColumn = () => {
-        switch (currentwindow) {
-            case "wide": 
-                setColumn(4)
-                break;
-            case "medium": 
-                setColumn(3)
-                break;
-            case "small": 
-                setColumn(2)
-                break;        
-            default:
-                break;
-        }
-    }
+function Feed({searchterm}) {
+    let {currentwindow,searchparam,column,updateColumn} = useContext(userContext)
+   
     
 
     
@@ -38,7 +22,10 @@ function Feed() {
         return (page.page + 1)
     },
     queryFn:({pageParam = 1})=>{
-            return (fetchPexels(searchparam,pageParam))    
+            if (!searchterm) {
+                return (fetchPexels(searchparam,pageParam))    
+            }
+            return (fetchPexels(searchterm,pageParam))    
         
     }})
 

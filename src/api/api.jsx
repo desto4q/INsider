@@ -44,25 +44,6 @@ export let fetchPexels = async (search,page) => {
     return (res)  
 }
 
-export let getVidoes = async (search,page) => {
-    console.log("run")
-    if (search) {
-        let query = search
-        let res = await client.videos.search.search({ query, per_page: 30,page: page}).then(video => {
-            let ph= video
-            return ph
-        });
-        return(res)
-    }
-    
-    let res = await client.videos.popular({per_page: 30, page: page}).then(media => {
-        let ph = media
-        console.log(ph)
-        return ph
-        })
-    return (res)  
-
-}
 export let getPhoto =  async (id) => {
     let res = await client.photos.show({id}).then(res => {
         return res
