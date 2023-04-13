@@ -24,7 +24,7 @@ function Imageid() {
     let string = data.url.replace("https://www.pexels.com/photo/","").replaceAll("-"," ").replace("/","").replace(/[0-9]/g, '').split(" ")[0];
   return (
     <div className='photo'>
-      <Userdetails/>
+      <Userdetails name={data.photographer} link={data.photographer_url} url={data.url} options={data.src}/>
       <div className="container">
         <div className="to_original">
           <a href="">{data.photographer}</a>

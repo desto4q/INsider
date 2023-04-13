@@ -62,10 +62,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 44px;
+    .download:is(:hover,:focus,:active) {
+        .dropdown {
+            display: flex;
+            opacity: 1;
+        }
+    }
     .download {
         background-color: blue;
-        select {
-            background-color: red;
+        position: relative;
+        transition: 0.4s ease;
+        .dropdown {
+            opacity: 0;
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            gap: 10px;
+            background-color: White;
+            outline: 1px solid #222222;
+            width: 150%;
+            transform: translateX(-30%) translateY(5px);
+            padding: 4px 2px;
+        }
+        .my_dl {
+            display: flex;
+            align-items: center;
+            padding: 4px;
         }
     }
 }
