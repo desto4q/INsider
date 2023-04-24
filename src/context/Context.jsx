@@ -5,8 +5,9 @@ function Context({Children}) {
     let [theme,setTheme] = useState("light")
     let [currentwindow,setWindow] = useState("wide");
     let [searchparam,setSearch] = useState()
+    let [hero,setHero] = useState(false)    
 
-    
+
 
     let toggletheme = ()=>{
         if (theme == "light") {
@@ -69,7 +70,7 @@ function Context({Children}) {
         }
     }
     
-    let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch,column,updateColumn}
+    let values = {theme,toggletheme,setWindow,updateWindow,currentwindow,searchparam,setSearch,column,updateColumn,hero,setHero}
 
   return (
     <userContext.Provider value={values}>

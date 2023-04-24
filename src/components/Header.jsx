@@ -6,7 +6,11 @@ import {Link} from "react-router-dom"
 
 
 function Header() {
-    let {searchparam,toggletheme,theme,setSearch} = useContext(userContext)
+    let {searchparam,toggletheme,theme,setSearch,hero} = useContext(userContext)
+
+    if (hero == false) {
+      return(null)
+    }
   return (
     <div className="header">
         <Link to={"/"} className="header_logo">

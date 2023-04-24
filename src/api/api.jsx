@@ -25,7 +25,6 @@ export let fetchPexels = async (search,page) => {
     // if (!page) {
     //     page = 1
     // }
-    console.log("ss")
     if (search) {
         let query = search
         let res = await client.photos.search({ query, per_page: 30,page: page}).then(photos => {
@@ -37,7 +36,6 @@ export let fetchPexels = async (search,page) => {
     
     let res = await client.photos.curated({per_page: 30, page: page}).then(media => {
         let ph = media
-        console.log(ph)
         return ph
         
         })

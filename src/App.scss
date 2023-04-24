@@ -16,9 +16,14 @@
 }
 .hero {
     height: calc(100dvh - 100px);
-    background-color: #587792;
     position: relative;
     isolation: isolate;
+    backdrop-filter: blur(20px);
+    .header {
+        position: absolute;
+        z-index:10;
+        justify-content: space-between;
+    }
     .background {
         position: absolute;
         width: 100%;
@@ -58,6 +63,8 @@
                 width: 100%;
                 font-size: 14px;
                 padding-left: 4px;
+                font-size: 18px;
+                font-weight: 600;
             }
             button {
                 all: unset;
@@ -356,7 +363,8 @@
         input {
             all: unset;
             width: 100%;
-            font-size: 14px;
+            font-size: 18px;
+            font-weight: 600;
             padding-left: 4px;
         }
         button {
@@ -390,6 +398,7 @@
     $bg: #fff;
     $outline: transparentize( $grey, 0.8);
     background-color: $bg;
+    
     .similar {
         
         border-top: 1px solid $outline;
