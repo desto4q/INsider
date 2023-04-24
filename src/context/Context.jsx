@@ -11,11 +11,27 @@ function Context({Children}) {
     let toggletheme = ()=>{
         if (theme == "light") {
           setTheme("dark")
+          localStorage.setItem("theme","dark")
         }
         else {
           setTheme("light")
-        }
+          localStorage.setItem("theme","light")
+        }    
+        console.log(theme)    
+
     }
+
+    let themeonLaunch= () =>{
+      if(localStorage.getItem("theme") == "dark") {
+          setTheme("dark")
+        console.log(localStorage.getItem("theme"))
+      }
+    }
+    useEffect(()=>{
+      
+      themeonLaunch()
+    },[])
+
     let updateWindow = () =>{
       let Wi = window.innerWidth
       if(Wi > 1200) {
@@ -34,6 +50,8 @@ function Context({Children}) {
           updateWindow()
       })
     },[])
+
+    
     let [column,setColumn] = useState(4)
     let updateColumn = () => {
         switch (currentwindow) {

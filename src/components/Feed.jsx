@@ -10,12 +10,9 @@ import { client, fetchPexels, query } from '../api/api';
 
 const queryCache = new QueryCache()
 function Feed({searchterm}) {
-    let {currentwindow,searchparam,column,updateColumn} = useContext(userContext)
-   
-    
+    let {currentwindow,searchparam,column,updateColumn} = useContext(userContext)   
 
-    
-   
+
     const {data,isLoading,isFetchingNextPage,fetchNextPage} = useInfiniteQuery({
     queryKey: ["content",searchparam],
     getNextPageParam: (page) => {
@@ -51,13 +48,15 @@ function Feed({searchterm}) {
     useEffect(()=>{
         updateColumn()
     },[currentwindow])
+
+
     
     let {ret} = useRef()
        return (
         <div className="feed"  >
             {
             isLoading == true ?  <>isLoading</>:                
-            <Layout colCount={column}  minWidth={200} className='masonry' items={data.pages.flatMap((data)=>{
+            <Layout colCount={column}  minWidth={20} className='masonry' items={data.pages.flatMap((data)=>{
                 return data.photos
             }).map(({id,photographer,src,photographer_url,url})=>{
                 
@@ -68,9 +67,7 @@ function Feed({searchterm}) {
                                 
             </Layout>
             }
-            <div className="fetchnext">
-                    <h2>sss</h2>
-            </div>
+            
         </div>
     )
   

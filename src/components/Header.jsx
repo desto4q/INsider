@@ -1,15 +1,17 @@
 import { IconBell, IconNotification, IconSearch } from '@tabler/icons-react'
 import React, { useContext } from 'react'
 import { userContext } from '../context/Context'
+import {IconUserCircle,IconSun,IconMoon} from "@tabler/icons-react"
+import {Link} from "react-router-dom"
+
 
 function Header() {
-    let {searchparam,setSearch} = useContext(userContext)
+    let {searchparam,toggletheme,theme,setSearch} = useContext(userContext)
   return (
     <div className="header">
-
-        <div className="header_logo">
+        <Link to={"/"} className="header_logo">
             <h2>IN</h2>pic
-        </div>
+        </Link>
         <form className='search' onSubmit={e=>{
             e.preventDefault()
             console.log(e.target[0].value)
@@ -21,7 +23,12 @@ function Header() {
             <button><IconSearch/></button>
             
         </form>
-        
+        <div className="toggle" onClick={()=>{
+          toggletheme()
+        }}>
+          {theme == "light" ? <IconSun/> :
+          <IconMoon/>}
+        </div>
     </div>
   )
 }

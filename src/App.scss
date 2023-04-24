@@ -14,18 +14,44 @@
         transition: 0.2s ease-in-out;
     }
 }
+.hero {
+    height: calc(100dvh - 100px);
+    background-color: #587792;
+    position: relative;
+    .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(.6) ;
+    }
+}
 .masonry {
     place-items: center;
+}
+.toggle {
+    svg {
+        height: 34px;
+        width: 34px;
+    }
 }
 .similar {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top:62px;
     h3 {
         font-size: 22px;
         font-weight: 800;
-        margin-left: 100px;
+        align-self: center;
     }
+}
+.photo:hover {
+    .to_original {
+        opacity: 1;
+        pointer-events: all;
+    }
+
 }
 .photo {
     position: relative;
@@ -34,6 +60,8 @@
     gap: 20px;
     .to_original {
         display: flex;
+        opacity: 0;
+        pointer-events: none;
         align-items: center;
         justify-content: space-between;
         width: 335px;
@@ -57,38 +85,83 @@
 }
 .userdetails {
     height: 60px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 44px;
-    .download:is(:hover,:focus,:active) {
-        .dropdown {
+    .username {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        .content {
             display: flex;
-            opacity: 1;
+            flex-direction: column;
+            gap: 2px;
+            .username {
+                font-size: 16px;
+                font-weight: 800;
+            }
+        }
+        svg {
+            height: 40px;
+            width: 40px;
+            stroke: #805e73;
+            fill: #ffaa5a;
+
         }
     }
+    
     .download {
-        background-color: blue;
         position: relative;
         transition: 0.4s ease;
-        .dropdown {
+        cursor: pointer;
+        padding: 4px;
+        font-weight: 500;
+        color: white;
+        text-transform: capitalize;
+        background-color: #587792;
+        border: 1px solid #805e73;
+        align-items: center;
+        display: flex;
+        .none {
+            user-select: none;
             opacity: 0;
-            display: none;
+            position: absolute;
+            pointer-events: none;
+            width: 150%;
+            transform: translateY(-100%) translateX(-100%);
+        }
+        .dropdown {
+            opacity: 1;
+            display: flex;
             flex-direction: column;
             position: absolute;
-            gap: 10px;
             background-color: White;
             outline: 1px solid #222222;
             width: 150%;
-            transform: translateX(-30%) translateY(5px);
-            padding: 4px 2px;
+            transform: translateX(-30%) translateY(55%);
+            overflow: hidden;
         }
         .my_dl {
+            all: unset;
+            
+            border-top: 1px solid #191924;
+            color: black;
+            font-weight: 500;
+            width: 100%;
+            background-color: none;
             display: flex;
             align-items: center;
-            padding: 4px;
+            padding: 8px 8px;
+            width: 100%;
+        }
+        .my_dl:hover {
+            transition: 0.1s ease-out;
+            background-color: #587792;
+            color: white;
+            svg {
+            fill: white;
+            }
         }
     }
 }
@@ -112,6 +185,7 @@
     grid-template-rows: masonry;
 }
  
+
 .card:hover {
     filter: grayscale(10);
     transform: scale(102%);
@@ -202,6 +276,7 @@
     flex-direction: column;
     background-color: #f1f1f1;
     width: 100%;
+    gap: 40px;
     // background-color: green;
    
 }
@@ -270,9 +345,14 @@
     $bg: #fff;
     $outline: transparentize( $grey, 0.8);
     background-color: $bg;
+    .similar {
+        
+        border-top: 1px solid $outline;
+    }
    
     .header {
         background-color: white;
+        border-bottom: 1px solid $outline;
         .search {
             width:80%;
             background-color: $outline;
@@ -332,7 +412,7 @@
 ////dark theme
 
 #dark {
-    $bg: #000000;
+    $bg: #191924;
     $active: #f3eff5;
     $grey: #191716;
     $accent: #ffaa5a;
@@ -341,8 +421,44 @@
     $white: #fff;
     $outline: transparentize( $active, 0.8);
     background-color: $bg;
+    .similar {
+        border-top: 1px solid $outline;
+        h3 {
+            color: white ;
+        }
+    }
+    .header {
+        background-color: $bg;
+        border-bottom: 1px solid $outline;
+        .search {
+            background-color: $outline;
+            input {
+                color: white;
+            }
+            svg {
+                color: white;
+            }
+            width: 80%;
+        }
+    }
     
-
+    .userdetails {
+        border-bottom: 1px solid $outline;
+        .username {
+            .username {
+                color: white;
+                font-weight: 500;
+            }
+            a {
+                color: $outline;
+            }
+        }
+    }
+    .toggle {
+        svg {
+            stroke: $accent !important;
+        }
+    }
     .home {
         background-color: $bg;
         .header {
@@ -378,7 +494,6 @@
         }
     }
     .card {
-        outline: 1px solid $outline;
         .user {
             svg {
                 fill: black;
